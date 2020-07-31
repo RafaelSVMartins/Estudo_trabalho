@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.arafael.cobranca.model.StatusTitulo;
 import com.arafael.cobranca.model.Titulo;
@@ -20,16 +23,28 @@ public class TituloController {
 	@Autowired
 	private TituloRepository tr;
 	@RequestMapping("/novo")
-	public String novo() {
-		return "CadastroTitulo";
+	public ModelAndView novo() {
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		mv.addObject(new Titulo());
+		return mv;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView salvar(Titulo titulo) {
+	public String salvar(@Validated Titulo titulo,Errors errors, RedirectAttributes attributes) {
 		System.out.println("descrição -->" + titulo.getDescricao());
+		if(errors.hasErrors()) {
+			return  "CadastroTitulo";
+		}
 		tr.save(titulo);
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
-		mv.addObject("mensagem", "todos os titulos salvos com sucesso!");
+		attributes.addAttribute("mensagem", "todos os titulos salvos com sucesso!");
+		return "redirect:/titulos/novo";
+	}
+	
+	@RequestMapping
+	public ModelAndView pesquisa() {
+		List<Titulo> titulos = tr.findAll();
+		ModelAndView mv = new ModelAndView("PesquisaTitulo");
+		mv.addObject("todosTitulos", titulos);
 		return mv;
 	}
 	

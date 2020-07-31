@@ -2,8 +2,8 @@ package com.arafael.cobranca.model;
 
 public enum StatusTitulo {
 	PENDENTE("pendente"),
-	RECEBIDO("recebido"),
-	CANCELADO("cancelado");
+	RECEBIDO("recebido");
+	
 	
 	private String descricao;
 
