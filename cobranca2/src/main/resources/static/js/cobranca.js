@@ -14,7 +14,7 @@ $('#confirmacaoExclusaoModal').on(
 			}
 			form.attr('action', action + codigoTitulo);
 			modal.find('.modal-body span').html(
-					'Tem certeza que deseja excluir o aluno! <strong>'
+					'Tem certeza que deseja excluir! <strong>'
 							+ descricaoTitulo + '</strong>?');
 		});
 

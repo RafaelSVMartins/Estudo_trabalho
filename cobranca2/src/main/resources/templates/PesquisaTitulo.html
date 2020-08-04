@@ -43,6 +43,10 @@
 						<td class="text-center"><a class="btn btn-link btn-xs"
 							th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}"> <span
 								class="glyphicon glyphicon-pencil"></span>
+						</a> <a class="btn btn-link btn-xs" data-toggle="modal"
+							data-target="#confirmacaoExclusaoModal"
+							th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}">
+								<span class="glyphicon glyphicon-remove"></span>
 						</a></td>
 					</tr>
 					<tr>
@@ -52,6 +56,7 @@
 				</tbody>
 			</table>
 		</div>
+		<div th:replace="DialogoConfirmacaoExclusao"></div>
 	</div>
 </section>
 </html>
